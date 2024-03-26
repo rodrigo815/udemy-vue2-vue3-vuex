@@ -22,7 +22,13 @@
         Nome: {{ perfil.cursos[0].nome }}<br>
         Carga horária: {{ perfil.cursos[0].cargaHoraria }}<br><br>
         Nome: {{ perfil.cursos[1].nome }}<br>
-        Carga horária: {{ perfil.cursos[1].cargaHoraria }}<br>
+        Carga horária: {{ perfil.cursos[1].cargaHoraria }}<br><br>
+        ------<br><br>
+        Somar: {{ somar() }}<br>
+        Subtrair: {{ subtrair() }}<br>
+        Multiplicar: {{ multiplicar() }}<br>
+        Dividir: {{ dividir() }}<br>
+        <br>
     </div>
 
     <script>
@@ -45,6 +51,20 @@
                         { nome: 'Vue.js', cargaHoraria: '43,5 horas' },
                         { nome: 'Java 17', cargaHoraria: '9 horas' }
                     ]
+                }
+            },
+            methods: {
+                somar: function somar() {
+                    return 4+2;
+                },
+                subtrair: function() {
+                    return 4-2;
+                },
+                multiplicar: () => {
+                    return 4*2;
+                },
+                dividir() {
+                    return 4 / 2;
                 }
             }
         });
