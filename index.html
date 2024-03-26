@@ -7,13 +7,45 @@
     <title>Primeiro App em Vue</title>
 </head>
 <body>
-    <div id="app">{{ mensagem }}</div>
+    <div id="app">
+        Mensagem: {{ mensagem }}<br><br>
+        Valor total: {{ valorTotal }}<br><br>
+        Logado: {{ logado }}<br><br>
+        Hobby 1: {{ hobbies[0] }}<br>
+        Hobby 2: {{ hobbies[1] }}<br>
+        Hobby 3: {{ hobbies[2] }}<br><br>
+        Perfil:<br>
+        Nome: {{ perfil.nome }}<br>
+        Site: {{ perfil.site }}<br>
+        Idade: {{ perfil.idade }} anos<br><br>
+        Cursos:<br><br>
+        Nome: {{ perfil.cursos[0].nome }}<br>
+        Carga horária: {{ perfil.cursos[0].cargaHoraria }}<br><br>
+        Nome: {{ perfil.cursos[1].nome }}<br>
+        Carga horária: {{ perfil.cursos[1].cargaHoraria }}<br>
+    </div>
 
     <script>
         const vm = new Vue({ // vm = ViewModel
             el: '#app',
             data: { // atributos reativos
-                mensagem: 'Primeiro template controlado pelo view'
+                mensagem: 'Primeiro template controlado pelo view',
+                valorTotal: 150.47,
+                logado: false,
+                hobbies: [
+                    'Plastimodelismo',
+                    'Jogar videogame',
+                    'Ouvir música'
+                ],
+                perfil: {
+                    nome: 'Rodrigo Sieja Bertin',
+                    site: 'rodrigosieja.com.br',
+                    idade: 33,
+                    cursos: [
+                        { nome: 'Vue.js', cargaHoraria: '43,5 horas' },
+                        { nome: 'Java 17', cargaHoraria: '9 horas' }
+                    ]
+                }
             }
         });
     </script>
