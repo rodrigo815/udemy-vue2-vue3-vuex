@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="./resources/vue.js"></script>
-    <title>Document</title>
+    <title>Primeiro App em Vue</title>
 </head>
 <body>
-    Teste Live Server
+    <div id="app">{{ mensagem }}</div>
+
+    <script>
+        const vm = new Vue({ // vm = ViewModel
+            el: '#app',
+            data: { // atributos reativos
+                mensagem: 'Primeiro template controlado pelo view'
+            }
+        });
+    </script>
 </body>
 </html>
