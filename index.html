@@ -51,20 +51,22 @@
                         { nome: 'Vue.js', cargaHoraria: '43,5 horas' },
                         { nome: 'Java 17', cargaHoraria: '9 horas' }
                     ]
-                }
+                },
+                n1: 10,
+                n2: 5
             },
             methods: {
                 somar: function somar() {
-                    return 4+2;
+                    return this.n1 + this.n2;
                 },
                 subtrair: function() {
-                    return 4-2;
+                    return this.n1 - this.n2;
                 },
-                multiplicar: () => {
-                    return 4*2;
+                multiplicar() {
+                    return this.n1 * this.n2;
                 },
                 dividir() {
-                    return 4 / 2;
+                    return this.n1 / this.n2;
                 }
             }
         });
