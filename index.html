@@ -14,32 +14,65 @@
 <body>
     <div id="app">
         <h4>Adicionar pacientes</h4>
-        <span>Nome: </span><input type="text" id="inputNome"><br>
-        <span>Idade: </span><input type="text" id="inputIdade"><br>
-        <span>Plano: </span><input type="text" id="inputPlano"><br>
+        <span>Nome: </span><input type="text" id="inputNome" aria-label="Nome"><br>
+        <span>Idade: </span><input type="text" id="inputIdade" aria-label="Idade"><br>
+        <span>Plano: </span><input type="text" id="inputPlano" aria-label="Plano"><br>
         <button @click="adicionarPaciente()">Adicionar</button>
 
         <hr>
 
+        <h4>Último paciente cadastrado</h4>
+        <p v-if="pacientes.length > 0">
+            {{ ultimoPaciente }}
+        </p>
+
         <h4>Pacientes cadastrados</h4>
-        <p v-for="(p, key) in pacientes">{{ key }}. {{ p.nome }} - {{ p.plano }}</p>
+        <p v-for="(p, key) in pacientes">
+            {{ key + 1 }}) {{ p.nome }} - {{ p.idade }} - {{ p.plano }}
+        </p>
+
+        <hr>
+
+        <h4>Pacientes do plano Ouro</h4>
+        <p v-for="p in pacientesOuro">
+            {{ p.nome }} - {{ p.idade }} - {{ p.plano }}
+        </p>
     </div>
 
     <script>
-        const vm = new Vue({ // vm = ViewModel
+        const vm = new Vue({
             el: '#app',
+
             data: {
                 pacientes: []
             },
+
             methods: {
                 adicionarPaciente() {
                     this.pacientes.push(
                         {
                             nome: inputNome.value,
                             idade: inputIdade.value,
-                            plano: inputPlano.value
+                            plano: inputPlano.value,
                         }
                     );
+                }
+            },
+            
+            computed: { // destinados à formação de atributos dinâmicos para evitar lógica no HTML
+                ultimoPaciente() {
+                    let key = this.pacientes.length - 1;
+
+                    let text = '';
+                    text += this.pacientes[key].nome + ' - ';
+                    text += this.pacientes[key].idade + ' - ';
+                    text += this.pacientes[key].plano;
+
+                    return text;
+                },
+
+                pacientesOuro() {
+                    return this.pacientes.filter(item => item.plano == 'Ouro');
                 }
             }
         });
