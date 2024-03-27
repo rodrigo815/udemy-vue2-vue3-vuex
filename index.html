@@ -7,70 +7,82 @@
     <title>Primeiro App em Vue</title>
     <style>
         .verde {
-            color: green;
+            background-color: green;
+            color: white;
         }
 
-        .negrito {
-            font-weight: bold;
-        }
-
-        .fundo-azul {
+        .azul {
             background-color: blue;
             color: white;
         }
 
-        .fundo-verde {
-            background-color: green;
+        .branco {
+            background-color: white;
+        }
+
+        .preto {
+            background-color: black;
             color: white;
+        }
+
+        .vermelho {
+            background-color: red;
+            color: white;
+        }
+
+        .borda {
+            border: 1px solid;
+        }
+
+        .div-principal {
+            width: 200px;
+            height: 200px;
+            padding: 10px;
+        }
+
+        .div-comum {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            padding: 5px;
         }
     </style>
 </head>
 <body>
     <div id="app">
-        <a :href="site">Site</a>
-
-        <p :class="cor" class="negrito">
-            Entendendo a diretiva v-bind
-        </p>
-
-        <input type="text" :placeholder="instrucaoDePreenchimento" :value="valor">
-        <input type="checkbox" :checked="check">
-
-        <br>
+        <div class="borda div-principal" :class="cor">
+            Cor: {{ cor }}
+            <br>
+            Posição X do mouse: {{ posicaoX }}
+            Posição Y do mouse: {{ posicaoY }}
+        </div>
+        
         <hr>
-        <br>
+        
+        <div @click="mudarCor('verde')" class="borda div-comum"></div>
 
-        {{ mensagem }}
-        <input :value="mensagem" :class="mensagem == 'Expressão' ? 'fundo-verde' : estilo">
+        <div @mouseover="mudarCor('azul')"
+             @mouseout="mudarCor('vermelho')"
+             class="borda div-comum"></div>
 
-        <br>
-        <hr>
-        <br>
-
-        <input type="text" @keyup="imprimirTexto('Mensagem no console')">
-        <button @click="mensagemAlerta($event, 'Mensagem de alerta')">Botão</button>
+        <div class="borda div-comum" @mousemove="coordenadas($event)"></div>
     </div>
 
     <script>
         const vm = new Vue({ // vm = ViewModel
             el: '#app',
-            data: { // atributos reativos
-                site: 'https://rodrigosieja.com.br',
-                cor: 'verde',
-                instrucaoDePreenchimento: 'Placeholder - Diretiva v-bind',
-                valor: 'Entendendo a diretiva v-bind',
-                check: true,
-
-                mensagem: 'Expressão',
-                estilo: 'fundo-azul'
+            data: {
+                cor: 'preto',
+                posicaoX: 0,
+                posicaoY: 0
             },
             methods: {
-                imprimirTexto(t) {
-                    console.log(t);
+                mudarCor(cor) {
+                    this.cor = cor;
                 },
-                mensagemAlerta(event, msg) {
-                    console.log(event, msg);
-                    alert(msg);
+                coordenadas(event) {
+                    this.posicaoX = event.clientX;
+                    this.posicaoY = event.clientY;
                 }
             }
         });
