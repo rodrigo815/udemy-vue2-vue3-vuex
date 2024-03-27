@@ -9,18 +9,37 @@
         .verde {
             color: green;
         }
+
+        .negrito {
+            font-weight: bold;
+        }
+
+        .fundo-azul {
+            background-color: blue;
+            color: white;
+        }
+
+        .fundo-verde {
+            background-color: green;
+            color: white;
+        }
     </style>
 </head>
 <body>
     <div id="app">
         <a :href="site">Site</a>
 
-        <p :class="cor">
+        <p :class="cor" class="negrito">
             Entendendo a diretiva v-bind
         </p>
 
         <input type="text" :placeholder="instrucaoDePreenchimento" :value="valor">
         <input type="checkbox" :checked="check">
+
+        <hr>
+
+        {{ mensagem }}
+        <input :value="mensagem" :class="mensagem == 'Expressão' ? 'fundo-verde' : estilo">
     </div>
 
     <script>
@@ -31,7 +50,10 @@
                 cor: 'verde',
                 instrucaoDePreenchimento: 'Placeholder - Diretiva v-bind',
                 valor: 'Entendendo a diretiva v-bind',
-                check: true
+                check: true,
+
+                mensagem: 'Expressão',
+                estilo: 'fundo-azul'
             },
             methods: {
                 somar: function somar() {
