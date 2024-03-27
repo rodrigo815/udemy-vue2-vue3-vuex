@@ -10,79 +10,52 @@
             background-color: green;
             color: white;
         }
-
-        .azul {
-            background-color: blue;
-            color: white;
-        }
-
-        .branco {
-            background-color: white;
-        }
-
-        .preto {
-            background-color: black;
-            color: white;
-        }
-
-        .vermelho {
-            background-color: red;
-            color: white;
-        }
-
-        .borda {
-            border: 1px solid;
-        }
-
-        .div-principal {
-            width: 200px;
-            height: 200px;
-            padding: 10px;
-        }
-
-        .div-comum {
-            display: inline-block;
-            width: 50px;
-            height: 50px;
-            padding: 5px;
-        }
     </style>
 </head>
 <body>
     <div id="app">
-        <div class="borda div-principal" :class="cor">
-            Cor: {{ cor }}
-            <br>
-            Posição X do mouse: {{ posicaoX }}
-            Posição Y do mouse: {{ posicaoY }}
-        </div>
-        
+        <!-- v-if simples -->
+        <button @click="exibirSaldo = !exibirSaldo">
+            <span v-if="!exibirSaldo">Exibir Saldo</span>
+            <span v-if="exibirSaldo">Ocultar Saldo</span>
+        </button>
+        <p v-if="exibirSaldo">
+            Saldo: <span>R$ {{ saldo }}</span>
+        </p>
+
         <hr>
-        
-        <div @click="mudarCor('verde')" class="borda div-comum"></div>
 
-        <div @mouseover="mudarCor('azul')"
-             @mouseout="mudarCor('vermelho')"
-             class="borda div-comum"></div>
+        <!-- v-if e v-else -->
+        Idade: <input type="text" id="inputIdade" @blur="setIdade()"> {{ idade }}
+        <p v-if="idade < 18">Menor de idade</p>
+        <p v-else>Maior de idade</p>
 
-        <div class="borda div-comum" @mousemove="coordenadas($event)"></div>
+        <hr>
+
+        <!-- v-if, v-else-if e v-else -->
+        Nota: <input type="text" id="inputNota" @blur="setNota()">
+        <p v-if="nota == ''">Digite a nota do aluno</p>
+        <p v-else-if="nota > 6 && nota <= 10">Aluno aprovado</p>
+        <p v-else-if="nota > 3 && nota <= 10">Aluno  em recuperação</p>
+        <p v-else-if="nota >= 0 && nota <= 10">Aluno reprovado</p>
+        <p v-else>A nota informada é inválida</p>
     </div>
 
     <script>
         const vm = new Vue({ // vm = ViewModel
             el: '#app',
             data: {
-                cor: 'preto',
-                posicaoX: 0,
-                posicaoY: 0
+                saldo: 4570.17,
+                exibirSaldo: false,
+                idade: 0,
+                nota: 0
             },
             methods: {
-                mudarCor(cor) {
-                    this.cor = cor;
+                setIdade() {
+                    this.idade = inputIdade.value;
                 },
-                coordenadas(event) {
-                    this.posicaoX = event.clientX;
-                    this.posicaoY = event.clientY;
+                setNota() {
+                    this.nota = inputNota.value;
                 }
             }
         });
