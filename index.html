@@ -36,10 +36,19 @@
         <input type="text" :placeholder="instrucaoDePreenchimento" :value="valor">
         <input type="checkbox" :checked="check">
 
+        <br>
         <hr>
+        <br>
 
         {{ mensagem }}
         <input :value="mensagem" :class="mensagem == 'Expressão' ? 'fundo-verde' : estilo">
+
+        <br>
+        <hr>
+        <br>
+
+        <input type="text" @keyup="imprimirTexto('Mensagem no console')">
+        <button @click="mensagemAlerta($event, 'Mensagem de alerta')">Botão</button>
     </div>
 
     <script>
@@ -56,17 +65,12 @@
                 estilo: 'fundo-azul'
             },
             methods: {
-                somar: function somar() {
-                    return this.n1 + this.n2;
+                imprimirTexto(t) {
+                    console.log(t);
                 },
-                subtrair: function() {
-                    return this.n1 - this.n2;
-                },
-                multiplicar() {
-                    return this.n1 * this.n2;
-                },
-                dividir() {
-                    return this.n1 / this.n2;
+                mensagemAlerta(event, msg) {
+                    console.log(event, msg);
+                    alert(msg);
                 }
             }
         });
