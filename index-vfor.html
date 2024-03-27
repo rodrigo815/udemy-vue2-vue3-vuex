@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="./resources/vue.js"></script>
+    <title>Primeiro App em Vue</title>
+    <style>
+        .verde {
+            background-color: green;
+            color: white;
+        }
+
+        .tooltip {
+            position: fixed;
+            z-index: 1;
+            width: 15em;
+            padding: 5px;
+            border: 1px solid;
+            background-color: ivory;
+
+        }
+
+        .tooltip p {
+            font-style: italic;
+            text-size-adjust: auto;
+        }
+
+        td {
+            padding: 1em;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <!--
+        <button @click="exibirSaldo = !exibirSaldo">
+            <span v-if="!exibirSaldo">Exibir Saldo</span>
+            <span v-if="exibirSaldo">Ocultar Saldo</span>
+        </button>
+        <p v-if="exibirSaldo">
+            Saldo: <span>R$ {{ saldo }}</span>
+        </p>
+
+        <hr>
+
+        Idade: <input type="text" id="inputIdade" @blur="setIdade()"> {{ idade }}
+        <p v-if="idade < 18">Menor de idade</p>
+        <p v-else>Maior de idade</p>
+
+        <hr>
+
+        Nota: <input type="text" id="inputNota" @blur="setNota()">
+        <p v-if="nota == ''">Digite a nota do aluno</p>
+        <p v-else-if="nota > 6 && nota <= 10">Aluno aprovado</p>
+        <p v-else-if="nota > 3 && nota <= 10">Aluno  em recuperação</p>
+        <p v-else-if="nota >= 0 && nota <= 10">Aluno reprovado</p>
+        <p v-else>A nota informada é inválida</p>
+
+        <hr>
+
+        <p @mouseover="exibirTextoAjuda = true" @mouseout="exibirTextoAjuda = false">Exemplo tooltip</p>
+        <div class="tooltip" v-show="exibirTextoAjuda">
+            <h4>Título texto ajuda</h4>
+            <p>Conteúdo texto ajuda</p>
+        </div>
+        <br><br><br>
+
+        <hr>
+
+        <div v-html="elementosHTML">Texto padrão</div>
+        <div v-text="elementosHTML">Texto padrão</div>
+
+        <hr>
+
+        <p v-once>Saldo inicial: {{ saldo }}</p>
+        <p>Saldo atualizado: {{ saldo }}</p>
+        <input type="text" id="valor">
+        <button @click="creditar()">Creditar</button>
+        <button @click="debitar()">Debitar</button>
+        <p v-text="mensagem"></p>
+
+        <hr> -->
+
+        <ul>
+            <li v-for="(curso, key) in cursos">{{ key+1 }} - {{ curso }}</li>
+        </ul>
+
+        <hr>
+
+        <table border="1">
+            <thead>
+                <th>ID</th>
+                <th>Título</th>
+                <th>Descrição</th>
+            </thead>
+            <tbody>
+                <tr v-for="({titulo, descricao}, key) in cursos2">
+                    <td>{{ key }}</td>
+                    <td>{{ titulo }}</td>
+                    <td>{{ descricao }}</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <hr>
+
+        <ul>
+            <li v-for="p in publicacoes" style="border: 1px solid; margin-bottom: 1em;" :key="p.id">
+                <div>
+                    {{ p.publicacao }}
+                    <hr>
+                    <input type="text">
+                </div>
+            </li>
+        </ul>
+
+        <button @click="misturarArray()">Misturar Publicações</button>
+
+        <hr>
+
+        <ul>
+            <li v-for="c in comentarios">{{ c.id }} - {{ c.comentario }}</li>
+        </ul>
+        <button @click="adicionarElemento()">Adicionar</button>
+        <br>
+        <button @click="removerElemento()">Remover</button>
+        <br>
+        <button @click="atualizarElemento()">Atualizar</button>
+    </div>
+
+    <script>
+        const vm = new Vue({ // vm = ViewModel
+            el: '#app',
+            data: {
+                // saldo: 4570.17,
+                // exibirSaldo: false,
+                // idade: 0,
+                // nota: 0,
+
+                // exibirTextoAjuda: false,
+
+                // elementosHTML: '<p><b>Site</b></p><a href="https://rodrigosieja.com.br">Rodrigo Sieja</a>',
+
+                // mensagem: '',
+
+                cursos: [
+                    'Java',
+                    'Web Completo',
+                    'Banco de Dados',
+                    'SOLID',
+                    'Angular'
+                ],
+                cursos2: {
+                    1000: {
+                        titulo: 'Java',
+                        descricao: 'Domine a linguagem de programação Java'
+                    },
+                    1001: {
+                        titulo: 'Web Completo',
+                        descricao: 'Domine as principais tecnologias web'
+                    }
+                },
+
+                publicacoes: [
+                    { id: 1, publicacao: 'Publicação 1' },
+                    { id: 2, publicacao: 'Publicação 2' },
+                    { id: 3, publicacao: 'Publicação 3' }
+                ],
+
+                comentarios: [
+                    { id: 1, comentario: 'Comentário 1' },
+                    { id: 2, comentario: 'Comentário 2' },
+                    { id: 3, comentario: 'Comentário 3' }
+                ]
+            },
+            methods: {
+                setIdade() {
+                    this.idade = inputIdade.value;
+                },
+                setNota() {
+                    this.nota = inputNota.value;
+                },
+                creditar() {
+                    if (valor.value !== null && valor.value !== undefined && !isNaN(valor.value) && valor.value !== '' && parseFloat(valor.value) > 0) {
+                        this.saldo += parseFloat(valor.value);
+                        this.mensagem = '';
+                    } else {
+                        this.mensagem = 'O valor digitado é inválido! Deve ser um número maior que zero!';
+                    }
+                },
+                debitar() {
+                    if (valor.value !== null && valor.value !== undefined && !isNaN(valor.value) && valor.value !== '' && parseFloat(valor.value) > 0) {
+                        this.saldo -= parseFloat(valor.value);
+                        this.mensagem = '';
+                    } else {
+                        this.mensagem = 'O valor digitado é inválido! Deve ser um número maior que zero!';
+                    }
+                },
+                misturarArray() {
+                    let misturado = [];
+
+                    misturado[0] = this.publicacoes[2];
+                    misturado[1] = this.publicacoes[0];
+                    misturado[2] = this.publicacoes[1];
+
+                    this.publicacoes = misturado;
+                },
+                adicionarElemento() {
+                    // this.comentarios[3] = { id: 4 , comentario: 'Novo comentário' };
+                    // console.log(this.comentarios);
+                    this.comentarios.push({ id: 4 , comentario: 'Novo comentário' });
+                },
+                removerElemento() {
+                    this.comentarios.pop();
+                },
+                atualizarElemento() {
+                    let novoComentario = { id: 2 , comentario: 'Comentário 2 atualizado' };
+                    this.$set(this.comentarios, 1, novoComentario);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
