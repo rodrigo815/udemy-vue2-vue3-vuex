@@ -10,11 +10,27 @@
             background-color: green;
             color: white;
         }
+
+        .tooltip {
+            position: fixed;
+            z-index: 1;
+            width: 15em;
+            padding: 5px;
+            border: 1px solid;
+            background-color: ivory;
+
+        }
+
+        .tooltip p {
+            font-style: italic;
+            text-size-adjust: auto;
+        }
     </style>
 </head>
 <body>
     <div id="app">
         <!-- v-if simples -->
+        <!-- não é renderizado no DOM -->
         <button @click="exibirSaldo = !exibirSaldo">
             <span v-if="!exibirSaldo">Exibir Saldo</span>
             <span v-if="exibirSaldo">Ocultar Saldo</span>
@@ -39,6 +55,22 @@
         <p v-else-if="nota > 3 && nota <= 10">Aluno  em recuperação</p>
         <p v-else-if="nota >= 0 && nota <= 10">Aluno reprovado</p>
         <p v-else>A nota informada é inválida</p>
+
+        <hr>
+
+        <!-- v-show -->
+        <!-- renderizado no DOM -->
+        <p @mouseover="exibirTextoAjuda = true" @mouseout="exibirTextoAjuda = false">Exemplo tooltip</p>
+        <div class="tooltip" v-show="exibirTextoAjuda">
+            <h4>Título texto ajuda</h4>
+            <p>Conteúdo texto ajuda</p>
+        </div>
+        <br><br><br>
+
+        <hr>
+
+        <div v-html="elementosHTML">Texto padrão</div>
+        <div v-text="elementosHTML">Texto padrão</div>
     </div>
 
     <script>
@@ -48,7 +80,11 @@
                 saldo: 4570.17,
                 exibirSaldo: false,
                 idade: 0,
-                nota: 0
+                nota: 0,
+
+                exibirTextoAjuda: false,
+
+                elementosHTML: '<p><b>Site</b></p><a href="https://rodrigosieja.com.br">Rodrigo Sieja</a>'
             },
             methods: {
                 setIdade() {
