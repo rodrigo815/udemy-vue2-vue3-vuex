@@ -71,6 +71,19 @@
 
         <div v-html="elementosHTML">Texto padrão</div>
         <div v-text="elementosHTML">Texto padrão</div>
+
+        <hr>
+
+        <p v-once>Saldo inicial: {{ saldo }}</p>
+        <p>Saldo atualizado: {{ saldo }}</p>
+        <input type="text" id="valor">
+        <button @click="creditar()">Creditar</button>
+        <button @click="debitar()">Debitar</button>
+        <p v-text="mensagem"></p>
+
+        <hr>
+
+        
     </div>
 
     <script>
@@ -84,7 +97,9 @@
 
                 exibirTextoAjuda: false,
 
-                elementosHTML: '<p><b>Site</b></p><a href="https://rodrigosieja.com.br">Rodrigo Sieja</a>'
+                elementosHTML: '<p><b>Site</b></p><a href="https://rodrigosieja.com.br">Rodrigo Sieja</a>',
+
+                mensagem: ''
             },
             methods: {
                 setIdade() {
@@ -92,6 +107,22 @@
                 },
                 setNota() {
                     this.nota = inputNota.value;
+                },
+                creditar() {
+                    if (valor.value !== null && valor.value !== undefined && !isNaN(valor.value) && valor.value !== '' && parseFloat(valor.value) > 0) {
+                        this.saldo += parseFloat(valor.value);
+                        this.mensagem = '';
+                    } else {
+                        this.mensagem = 'O valor digitado é inválido! Deve ser um número maior que zero!';
+                    }
+                },
+                debitar() {
+                    if (valor.value !== null && valor.value !== undefined && !isNaN(valor.value) && valor.value !== '' && parseFloat(valor.value) > 0) {
+                        this.saldo -= parseFloat(valor.value);
+                        this.mensagem = '';
+                    } else {
+                        this.mensagem = 'O valor digitado é inválido! Deve ser um número maior que zero!';
+                    }
                 }
             }
         });
